@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-07-14 학습일지 | 이하진 부트캠프 스터디로그</title>
+<style>
+  :root {
+    --bg: #f7f8fa;
+    --card: #ffffff;
+    --text: #1f2328;
+    --muted: #6b7280;
+    --accent: #4f46e5;
+    --accent-light: #eef2ff;
+    --border: #e5e7eb;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 48px 20px 80px;
+  }
+  header {
+    margin-bottom: 32px;
+  }
+  .back {
+    display: inline-block;
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    margin-bottom: 16px;
+  }
+  .back:hover { color: var(--accent); }
+  h1 {
+    font-size: 26px;
+    margin: 0 0 6px;
+    letter-spacing: -0.02em;
+  }
+  .date-badge {
+    display: inline-block;
+    font-size: 13px;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-weight: 600;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  }
+  .card h2 {
+    font-size: 15px;
+    margin: 0 0 14px;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card h2::before {
+    content: "";
+    width: 4px;
+    height: 16px;
+    background: var(--accent);
+    border-radius: 2px;
+    display: inline-block;
+  }
+  ul { margin: 0; padding-left: 20px; }
+  li { margin-bottom: 8px; }
+  li:last-child { margin-bottom: 0; }
+  .note {
+    background: #fffbeb;
+    border-left: 3px solid #f59e0b;
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #78350f;
+    margin-top: 10px;
+  }
+  code {
+    background: #f1f5f9;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    color: #be123c;
+  }
+  footer {
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 40px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="index.html">스터디 로그로 돌아가기</a>
+    <h1>학습일지</h1>
+    <span class="date-badge">2026.07.14 (화)</span>
+  </header>
+
+  <div class="card">
+    <h2>오늘의 목표</h2>
+    <ul>
+      <li>PyTorch 텐서 차원 조작(squeeze, unsqueeze, view) 및 autograd(역전파) 개념 이해</li>
+      <li>MLP 모델의 forward 함수 구조와 손실 함수(MSELoss, CrossEntropyLoss) 학습</li>
+      <li>실습 과제 디버깅 (3-2, 5번 문항)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>진행한 활동</h2>
+    <ul>
+      <li><code>squeeze()</code>, <code>unsqueeze()</code>, <code>view()</code> 차이 학습. 실제 텐서 값 예시로 원소 배치 확인</li>
+      <li><code>requires_grad</code>, <code>.backward()</code>, <code>.grad</code>, <code>.detach()</code> 등 autograd 관련 함수 정리</li>
+      <li>MLP 은닉층 구조 파악 (<code>fc1</code>, <code>fc2</code>가 은닉층, <code>fc3</code>은 출력층으로 가는 다리)</li>
+      <li><code>self.fc3(x)</code>와 <code>self.fc3</code>의 차이. 괄호 유무에 따른 객체 호출 여부 실습</li>
+      <li><code>CrossEntropyLoss</code> 관련 에러 2건 해결 (NameError, RuntimeError)</li>
+      <li>모델 평가 코드 완성 — <code>len(test_loader)</code> vs <code>len(test_loader.dataset)</code> 차이 이해</li>
+      <li>이진 분류 타겟 생성 코드 <code>(iris.target == 0).astype(int)</code> 원리 파악</li>
+      <li>파이썬 <code>match-case</code>의 break 불필요 이유 학습</li>
+      <li>GitHub Pages 재확인 (한글 파일명 이슈)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>배운 점 메모</h2>
+    <ul>
+      <li><code>squeeze</code>와 <code>unsqueeze</code>는 크기 1인 차원만 제거하거나 추가하는 구조적 연산이고, <code>view</code>는 원소를 통째로 펼쳤다가 재배열하는 물리적 연산이다. 결과 shape이 같아도 원리는 다르다</li>
+      <li>함수 이름 뒤 괄호 유무가 핵심이다. 괄호가 없으면 객체가 아니라 클래스나 함수 자체가 되어버려서, 이후 호출 시 예상하지 못한 동작이 발생한다</li>
+      <li>loss는 예측과 정답의 차이를 숫자로 표현한 것이며, train loss만 낮다고 안심하면 안 된다</li>
+      <li><code>CrossEntropyLoss</code>는 내부적으로 softmax를 처리하므로 모델 출력단에 softmax를 중복으로 넣으면 안 된다</li>
+    </ul>
+    <div class="note">
+      오늘 나온 두 개의 별개 에러(NameError, RuntimeError)가 사실 "괄호 누락"이라는 같은 원인에서 비롯됐다는 걸 확인한 게 오늘의 핵심 포인트!
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>내일 할 일</h2>
+    <ul>
+      <li>오늘 정리한 autograd / 손실함수 개념을 바탕으로 실습 과제 마무리</li>
+      <li>GitHub Pages <code>인덱스.html</code> → <code>index.html</code>로 파일명 변경 검토</li>
+      <li>학습일지 GitHub에 업로드</li>
+    </ul>
+  </div>
+
+  <footer>이하진 · AI 부트캠프 스터디 로그</footer>
+</div>
+</body>
+</html>
